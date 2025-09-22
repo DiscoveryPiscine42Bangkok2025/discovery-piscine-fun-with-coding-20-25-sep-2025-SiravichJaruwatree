@@ -1,1 +1,31 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><title>It’s over 9000 (jQuery)</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  body{margin:0;height:100vh;display:grid;place-items:center;background:#f5f5f5;font-family:Arial}
+  .calc{background:#fff;padding:20px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,.1);
+        display:flex;gap:10px;align-items:center}
+  input,select,button{font-size:16px;padding:8px 10px} input{width:120px}
+</style>
+</head><body>
+<form class="calc" id="calc">
+  <input id="left" type="text" placeholder="Left (0+)">
+  <select id="op"><option>+</option><option>-</option><option>*</option><option>/</option><option>%</option></select>
+  <input id="right" type="text" placeholder="Right (0+)">
+  <button type="submit">Try me!</button>
+</form>
+<script>
+  const nonNegInt = s=>/^\d+$/.test(s);
+  setInterval(()=>alert('Please, use me...'),30000);
+  $('#calc').on('submit', function(e){
+    e.preventDefault();
+    const l=$('#left').val().trim(), r=$('#right').val().trim(), op=$('#op').val();
+    if(!nonNegInt(l)||!nonNegInt(r)) return alert('Error :(');
+    const a=parseInt(l,10), b=parseInt(r,10);
+    if((op==='/'||op==='%') && b===0){ console.log("It's over 9000!"); return alert("It's over 9000!"); }
+    let res; if(op==='+')res=a+b; else if(op==='-')res=a-b; else if(op==='*')res=a*b; else if(op==='/')res=a/b; else res=a%b;
+    console.log(res); alert(String(res));
+  });
+</script>
+</body></html>
 

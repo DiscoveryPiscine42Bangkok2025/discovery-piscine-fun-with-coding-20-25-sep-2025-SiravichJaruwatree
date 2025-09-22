@@ -1,1 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Explode this balloon</title>
+  <style>
+    html, body {
+      height: 100%; margin: 0;
+      display: grid; place-items: center;
+      font-family: system-ui, Arial, sans-serif;
+      background: #f6f6f6;
+    }
+    #balloon {
+      width: 200px;
+      height: 200px;
+      background: red;
+      border-radius: 50%;
+      transition: background-color .15s, width .1s, height .1s;
+      cursor: pointer;
+      user-select: none;
+    }
+    .hint { position: fixed; bottom: 12px; color:#666; font-size: 12px; }
+  </style>
+</head>
+<body>
+
+  <div id="balloon" title="Click to grow • Move mouse out to shrink"></div>
+  <div class="hint">Click = grow & cycle color • Mouse leave = shrink & reverse color</div>
+
+  <script>
+    const balloon = document.getElementById('balloon');
+    const colors = ['red','green','blue'];
+    let size = 200;          // current diameter
+    let colorIdx = 0;        // 0:red, 1:green, 2:blue
+    const MIN = 200, MAX = 420;
+
+    function render() {
+      balloon.style.width = size + 'px';
+      balloon.style.height = size + 'px';
+      balloon.style.backgroundColor = colors[colorIdx];
+    }
+    render();
+
+    // Click: grow +10 and cycle color forward
+    balloon.addEventListener('click', () => {
+      size += 10;
+      colorIdx = (colorIdx + 1) % colors.length;
+
+      if (size > MAX) {        // explode -> reset
+        size = MIN;
+        colorIdx = 0;          // back to original red
+      }
+      render();
+    });
+
+    // Mouse leaves balloon: shrink -5 (not below 200) & cycle color backward
+    balloon.addEventListener('mouseleave', () => {
+      if (size > MIN) size -= 5;
+      colorIdx = (colorIdx + colors.length - 1) % colors.length; // step back
+      render();
+    });
+  </script>
+</body>
+</html>
 

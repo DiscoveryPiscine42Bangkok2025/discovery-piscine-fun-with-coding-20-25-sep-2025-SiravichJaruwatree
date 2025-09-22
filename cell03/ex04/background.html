@@ -1,1 +1,12 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><title>Change Background (jQuery)</title>
+<link rel="stylesheet" href="background.css">
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head><body>
+<button id="changeBtn">Click me!</button>
+<script>
+  function randHex(){return '#'+Math.floor(Math.random()*0xFFFFFF).toString(16).padStart(6,'0');}
+  $('#changeBtn').on('click', () => $('body').css('background-color', randHex()));
+</script>
+</body></html>
 

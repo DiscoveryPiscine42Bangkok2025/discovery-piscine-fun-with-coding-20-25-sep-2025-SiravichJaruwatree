@@ -1,1 +1,45 @@
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+table {
+  width: 100vw;
+  height: 100vh;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+td {
+  border: 2px solid #555;
+  padding: 2vw;
+  font-size: clamp(14px, 2.5vw, 24px);
+  word-wrap: break-word;
+  vertical-align: middle;
+}
+
+.left {
+  background: #b0bf6a;
+}
+
+.right {
+  background: #f3b7aa;
+}
+
+@media (max-width: 700px) {
+  table, tbody, tr, td {
+    display: block;
+    width: 100%;
+  }
+  tr {
+    height: 100%;
+  }
+  td {
+    height: 50vh;
+  }
+}
 

@@ -1,1 +1,26 @@
+<!DOCTYPE html><html><head>
+<meta charset="UTF-8"><title>Balloon (jQuery)</title>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<style>
+  html,body{height:100%;margin:0;display:grid;place-items:center;background:#f6f6f6}
+  #balloon{width:200px;height:200px;border-radius:50%;background:red;cursor:pointer;
+           transition:width .1s,height .1s,background-color .15s}
+</style>
+</head><body>
+<div id="balloon" title="Click grow • mouseleave shrink"></div>
+<script>
+  const colors=['red','green','blue']; let size=200, idx=0, MIN=200, MAX=420;
+  const render=()=>$('#balloon').css({width:size,height:size,'background-color':colors[idx]});
+  render();
+  $('#balloon').on('click', function(){
+    size+=10; idx=(idx+1)%colors.length;
+    if(size>MAX){ size=MIN; idx=0; }
+    render();
+  }).on('mouseleave', function(){
+    if(size>MIN) size-=5;
+    idx=(idx+colors.length-1)%colors.length;
+    render();
+  });
+</script>
+</body></html>
 

@@ -1,1 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>It’s over 9000</title>
+  <style>
+    body{font-family:Arial, sans-serif; margin:0; height:100vh; display:grid; place-items:center; background:#f5f5f5}
+    .calc{background:#fff; padding:20px 24px; border-radius:10px; box-shadow:0 6px 18px rgba(0,0,0,.1); display:flex; gap:10px; align-items:center}
+    input, select, button{font-size:16px; padding:8px 10px}
+    input{width:120px}
+    button{cursor:pointer}
+  </style>
+</head>
+<body>
+
+  <form class="calc" id="calc">
+    <input id="left"  type="text" placeholder="Left (0+)" />
+    <select id="op">
+      <option value="+">+</option>
+      <option value="-">-</option>
+      <option value="*">*</option>
+      <option value="/">/</option>
+      <option value="%">%</option>
+    </select>
+    <input id="right" type="text" placeholder="Right (0+)" />
+    <button type="submit">Try me!</button>
+  </form>
+
+  <script>
+    // helper: ตรวจว่าเป็น "จำนวนเต็มบวกหรือศูนย์" เท่านั้น
+    const isNonNegInt = (s) => /^\d+$/.test(s);
+
+    // alert ทุก ๆ 30 วินาที
+    setInterval(() => alert('Please, use me...'), 30000);
+
+    document.getElementById('calc').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const lRaw = document.getElementById('left').value.trim();
+      const rRaw = document.getElementById('right').value.trim();
+      const op   = document.getElementById('op').value;
+
+      if (!isNonNegInt(lRaw) || !isNonNegInt(rRaw)) {
+        alert('Error :(');
+        return;
+      }
+
+      const left  = parseInt(lRaw, 10);
+      const right = parseInt(rRaw, 10);
+
+      // กรณีหารหรือ mod ด้วยศูนย์
+      if ((op === '/' || op === '%') && right === 0) {
+        console.log("It's over 9000!");
+        alert("It's over 9000!");
+        return;
+      }
+
+      let result;
+      switch (op) {
+        case '+': result = left + right; break;
+        case '-': result = left - right; break;
+        case '*': result = left * right; break;
+        case '/': result = left / right; break;
+        case '%': result = left % right; break;
+      }
+
+      console.log(result);
+      alert(String(result));
+    });
+  </script>
+</body>
+</html>
 
